@@ -29,6 +29,7 @@ def getinfo(aid):
         print(aid, gsvres.get('code'), gsvres.get('error'))
         return 404
 
+    return postdata
 
 if __name__ == '__main__':
     pass
