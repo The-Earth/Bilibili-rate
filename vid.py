@@ -7,7 +7,12 @@ import requests
 
 
 def getinfo(aid):
-    '''获取aid信息'''
+    '''
+    {comment:'Here is comment',
+    {coins: 123,
+    ...
+    }
+    '''
     if not aid:
         return 404
     else:
@@ -37,5 +42,5 @@ def getinfo(aid):
     return postdata
 
 if __name__ == '__main__':
-    for i in range(36020000, 36020100):
-        data = getinfo(i)
+    for aid in range(36020000, 36020100):
+        data = getinfo(aid)
