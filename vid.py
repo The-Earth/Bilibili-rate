@@ -21,7 +21,12 @@ def getinfo(aid):
             'coins': int(gsvres.get('coins')),
             'favorites': int(gsvres.get('favorites')),
             'tid': int(gsvres.get('tid')),
-            'typename': gsvres.get('typname')
+            'typename': str(gsvres.get('typname')),
+            'arctype': str(gsvres.get('arctype')),
+            'review': int(gsvres.get('review')),
+            'title': str(gsvres.get('title')),
+            'description': str(gsvres.get('description')),
+            'mid': int(gsvres.get('mid')),
         }
         if gsvres.get('play') != "--":
             postdata['play'] = gsvres.get('play')
