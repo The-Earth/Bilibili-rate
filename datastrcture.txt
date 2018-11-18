@@ -1,0 +1,11 @@
+'tid': 			22
+'typename': 		'鬼畜调教'
+'arctype': 			'Original'
+'play': 			443534
+'review': 			627
+'video_review': 		1766
+'favorites': 		15077
+'title': 			'【全明星】沙漠骆驼'
+'description':		 'BGM：沙漠骆驼\n封面：冰攻厂BeSo'
+'mid': 			24314825
+'coins': 			26721
