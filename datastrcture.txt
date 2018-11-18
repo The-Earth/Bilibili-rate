@@ -1,11 +1,11 @@
 'tid': 			22
-'typename': 		'¹íĞóµ÷½Ì'
+'typename': 		'é¬¼ç•œè°ƒæ•™'
 'arctype': 			'Original'
 'play': 			443534
 'review': 			627
 'video_review': 		1766
 'favorites': 		15077
-'title': 			'¡¾È«Ã÷ĞÇ¡¿É³Ä®ÂæÍÕ'
-'description':		 'BGM£ºÉ³Ä®ÂæÍÕ\n·âÃæ£º±ù¹¥³§BeSo'
+'title': 			'ã€å…¨æ˜æ˜Ÿã€‘æ²™æ¼ éª†é©¼'
+'description':		 'BGMï¼šæ²™æ¼ éª†é©¼\nå°é¢ï¼šå†°æ”»å‚BeSo'
 'mid': 			24314825
 'coins': 			26721
