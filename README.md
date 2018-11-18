@@ -1,2 +1,2 @@
 # bilibili-rate
-[Steven](https://github.com/JunboSteven) branch
+[The-earth](https://github.com/The-Earth) branch
