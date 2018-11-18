@@ -21,7 +21,7 @@ def getinfo(aid):
             'coins': int(gsvres.get('coins')),
             'favorites': int(gsvres.get('favorites')),
             'tid': int(gsvres.get('tid')),
-            'typename': ''
+            'typename': gsvres.get('typname')
         }
         if gsvres.get('play') != "--":
             postdata['play'] = gsvres.get('play')
@@ -32,4 +32,5 @@ def getinfo(aid):
     return postdata
 
 if __name__ == '__main__':
-    pass
+    for i in range(36020000, 36020100):
+        data = getinfo(i)
