@@ -10,7 +10,7 @@ import vid
 
 data = []
 for aid in range(36020000, 36020100):
-    data.append(vid.gettinfo(aid))
+    data.append(vid.getinfo(aid))
 # rest of code
 ```
 
