@@ -55,3 +55,5 @@ def ExportData(aid):
     dic={}
     return l
 
+if __name__ ==  '__main__':
+    pass
