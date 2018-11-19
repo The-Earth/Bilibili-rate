@@ -31,7 +31,7 @@ def getinfo(aid):
             'review': int(gsvres.get('review')),
             'title': str(gsvres.get('title')),
             'description': str(gsvres.get('description')),
-            'mid': int(gsvres.get('mid')),
+            'mid': int(gsvres.get('mid')),  # TODO Add followers of mid
         }
         if gsvres.get('play') != "--":
             postdata['play'] = int(gsvres.get('play'))
