@@ -105,7 +105,9 @@ venv.bak/
 *.py___jb_tmp___
 
 # Database
-.db
+*.db
 
 # PyCharm
 .idea/
+
+AlreadyIn.txt
