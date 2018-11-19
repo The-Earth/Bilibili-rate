@@ -16,11 +16,16 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
     return outputs
 
 
-def main():
+def train(indata, outdata):
     invec = tf.placeholder(dtype=tf.int32, shape=(11))
+    out = tf.placeholder(dtype=tf.float32, shape=())
 
-    outvec =
+    # layers
+    hl1 = add_layer(inputs=invec, in_size=11, out_size=1, activation_function=tf.nn.sigmoid)
+    prediction = add_layer(inputs=hl1, in_size=11, out_size=1)
+    loss = tf.abs()
+
 
 
 if __name__ == '__main__':
-    main()
+    train()
