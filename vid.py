@@ -27,7 +27,7 @@ def getinfo(aid):
             'coins': int(gsvres.get('coins')),
             'favorites': int(gsvres.get('favorites')),
             'tid': int(gsvres.get('tid')),
-            'typename': str(gsvres.get('typname')),
+            'typename': str(gsvres.get('typename')),
             'arctype': str(gsvres.get('arctype')),
             'review': int(gsvres.get('review')),
             'title': str(gsvres.get('title')),
