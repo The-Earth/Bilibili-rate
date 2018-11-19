@@ -4,7 +4,6 @@
 
 from bilisupport import API_VIDEOSTATUS, HEADERS, APPKEY
 import requests
-import sqlite3
 
 
 def getinfo(aid):
