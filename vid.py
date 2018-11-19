@@ -4,6 +4,7 @@
 
 from bilisupport import API_VIDEOSTATUS, HEADERS, APPKEY
 import requests
+import sqlite3
 
 
 def getinfo(aid):
@@ -34,13 +35,12 @@ def getinfo(aid):
             'mid': int(gsvres.get('mid')),
         }
         if gsvres.get('play') != "--":
-            postdata['play'] = gsvres.get('play')
+            postdata['play'] = int(gsvres.get('play'))
     else:
         print(aid, gsvres.get('code'), gsvres.get('error'))
         return 404
-
     return postdata
 
 if __name__ == '__main__':
     for aid in range(36020000, 36020100):
-        data = getinfo(aid)
+        getinfo(aid)
