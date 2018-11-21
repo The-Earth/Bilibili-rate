@@ -21,10 +21,18 @@ def train(indata, outdata):
     out = tf.placeholder(dtype=tf.float32, shape=())
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=11, out_size=1, activation_function=tf.nn.sigmoid)
+    hl1 = add_layer(inputs=invec, in_size=11, out_size=11, activation_function=tf.nn.sigmoid)
     prediction = add_layer(inputs=hl1, in_size=11, out_size=1)
-    loss = tf.abs()
+    loss = tf.abs(out - prediction)
 
+    trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    for i in range(1000):
+        train_res = sess.run([trainer,loss], feed_dict={invec:indata, out:outdata})
+        print(train_res)
 
 
 if __name__ == '__main__':
