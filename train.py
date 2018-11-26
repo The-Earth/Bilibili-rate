@@ -18,12 +18,12 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
 
 
 def train(startid, endid):
-    invec = tf.placeholder(dtype=tf.int32, shape=[1, 8])
-    out = tf.placeholder(dtype=tf.float32, shape=())
+    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    out = tf.placeholder(dtype=tf.float32)
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=11, out_size=11, activation_function=tf.nn.sigmoid)
-    prediction = add_layer(inputs=hl1, in_size=11, out_size=1)
+    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.sigmoid)
+    prediction = add_layer(inputs=hl1, in_size=8, out_size=1)
     loss = tf.reduce_mean(tf.square(out - prediction))
 
     trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
@@ -31,13 +31,17 @@ def train(startid, endid):
     sess = tf.Session()
     sess.run(init)
 
-    for i in range(5):
+    for i in range(100):
         for j in range(startid,endid):
-            train_res = sess.run([trainer,loss], feed_dict={invec:ExportData(j)[0], out:ExportData(j)[1]})
-            print(train_res)
+            train_data = ExportData(j)
+            if train_data == 404:
+                continue
+            else:
+                train_res = sess.run([trainer,loss], feed_dict={invec:[train_data[0]], out:train_data[1]})
+                print(j, train_res)
 
-    tf.train.Saver().save(sess, r'./tf')
+    tf.train.Saver().save(sess, r'./tf/train')
 
 
 if __name__ == '__main__':
-    train(36670000,36671000)
+    train(36670500,36670833)

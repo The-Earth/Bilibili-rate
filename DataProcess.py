@@ -55,12 +55,15 @@ def ExportData(aid):
     cur=conn.execute(sql)
     l1=cur.fetchall()
     l2=[]
-    for i in range(0,9):
-        l2.append(l1[0][i])
-    l3=[l2,l1[0][9]]
-    conn.close()
 
-    return l3
+    if len(l1):
+        for i in range(0,9):
+            l2.append(l1[0][i])
+        l3=[l2[1:9], l1[0][9]]
+        conn.close()
+        return l3
+    else:
+        return 404
 
 
 if __name__ ==  '__main__':
