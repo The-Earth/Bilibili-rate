@@ -52,7 +52,6 @@ def ExportData(aid):
     cur=conn.execute(sql)
     l=cur.fetchall()
     conn.close()
-    dic={}
     return l
 
 if __name__ ==  '__main__':
