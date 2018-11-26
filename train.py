@@ -1,5 +1,6 @@
 import tensorflow as tf
 from DataProcess import ExportData
+import os
 
 def add_layer(inputs, in_size, out_size, activation_function=None):
     '''
@@ -22,7 +23,7 @@ def train(startid, endid):
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.sigmoid)
+    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
     prediction = add_layer(inputs=hl1, in_size=8, out_size=1)
     loss = tf.reduce_mean(tf.square(out - prediction))
 
@@ -31,7 +32,12 @@ def train(startid, endid):
     sess = tf.Session()
     sess.run(init)
 
-    for i in range(100):
+    if os.path.exists(r'tf/train.index'):
+        tf.train.Saver().restore(sess, r'tf/train')
+    else:
+        pass
+
+    for i in range(1000):
         for j in range(startid,endid):
             train_data = ExportData(j)
             if train_data == 404:
@@ -41,6 +47,7 @@ def train(startid, endid):
                 print(j, train_res)
 
     tf.train.Saver().save(sess, r'./tf/train')
+    wrter = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
 
 if __name__ == '__main__':
