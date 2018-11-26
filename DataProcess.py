@@ -1,5 +1,6 @@
 import sqlite3
 import vid
+import math
 
 def Builtdatabase():
     conn = sqlite3.connect('Data.db')
@@ -25,11 +26,13 @@ def Builtdatabase():
 def InsertData(aid):
     conn = sqlite3.connect('Data.db')
     postdata=vid.getinfo(aid)
-    ytrain=1
+    p=postdata['play']
+    c=postdata['coins']
+    ytrain=math.log(p/(1+math.exp(0.02-c/p)),10)
     if type(postdata)!=type(1):
         sql = '''insert into Data
                     (VIDEONUMBER,COMMENT,TID,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,MID,COINS,YTRAIN,TITLE,TYPENAME,DESCRIPTION)
-                    values(%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,'%s','%s','%s')''' % (aid,
+                    values(%d,%d,%d,%d,%d,%d,%d,%d,%d,%.1f,'%s','%s','%s')''' % (aid,
                             postdata['comment'],
                             postdata['tid'],
                             postdata['play'],
@@ -50,9 +53,15 @@ def ExportData(aid):
     conn = sqlite3.connect('Data.db')
     sql="SELECT * from Data where VIDEONUMBER=%d"%aid
     cur=conn.execute(sql)
-    l=cur.fetchall()
+    l1=cur.fetchall()
+    l2=[]
+    for i in range(0,9):
+        l2.append(l1[0][i])
+    l3=[l2,l1[0][9]]
     conn.close()
-    return l
+
+    return l3
+
 
 if __name__ ==  '__main__':
     pass
