@@ -28,7 +28,7 @@ def InsertData(aid):
     postdata=vid.getinfo(aid)
     p=postdata['play']
     c=postdata['coins']
-    ytrain=math.log(p/(1+math.exp(0.02-c/p)),10)
+    ytrain=math.log(p,10)/(1+math.exp(2-100*c/p))
     if type(postdata)!=type(1):
         sql = '''insert into Data
                     (VIDEONUMBER,COMMENT,TID,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,MID,COINS,YTRAIN,TITLE,TYPENAME,DESCRIPTION)
