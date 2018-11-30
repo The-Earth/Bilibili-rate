@@ -25,9 +25,9 @@ def train(startid, endid):
     # layers
     hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
     prediction = add_layer(inputs=hl1, in_size=8, out_size=1)
-    loss = tf.reduce_mean(tf.square(out - prediction))
+    loss = tf.abs(out - prediction)
 
-    trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
+    trainer = tf.train.RMSPropOptimizer(0.001).minimize(loss)
     init = tf.global_variables_initializer()
     sess = tf.Session()
     sess.run(init)
@@ -38,17 +38,18 @@ def train(startid, endid):
         pass
 
     for i in range(1000):
-        for j in range(startid,endid):
+        for j in range(startid, endid):
             train_data = ExportData(j)
             if train_data == 404:
                 continue
             else:
-                train_res = sess.run([trainer,loss], feed_dict={invec:[train_data[0]], out:train_data[1]})
-                print(j, train_res)
+                sess.run(trainer, feed_dict={invec:[train_data[0]], out:train_data[1]})
+        print(sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]}))
 
     tf.train.Saver().save(sess, r'./tf/train')
     wrter = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
 
 if __name__ == '__main__':
-    train(36670500,36670833)
+    train(36676000, 36678336)
+    os.system('pause')
