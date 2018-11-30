@@ -28,7 +28,7 @@ def train(startid, endid):
     prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
     loss = tf.abs(out - prediction)
 
-    trainer = tf.train.RMSPropOptimizer(0.001).minimize(loss)
+    trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
     init = tf.global_variables_initializer()
     sess = tf.Session()
     sess.run(init)
