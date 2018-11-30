@@ -24,7 +24,8 @@ def train(startid, endid):
 
     # layers
     hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
-    prediction = add_layer(inputs=hl1, in_size=8, out_size=1)
+    hl2 = add_layer(inputs=hl1, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
     loss = tf.abs(out - prediction)
 
     trainer = tf.train.RMSPropOptimizer(0.001).minimize(loss)
