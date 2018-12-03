@@ -52,7 +52,31 @@ def train(startid, endid):
     tf.train.Saver().save(sess, r'./tf/train')
     writer = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
-    plt.savefig('loss.png')
+    plt.savefig('loss_process.png')
+
+def lossdis(startid, endid):
+    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    out = tf.placeholder(dtype=tf.float32)
+
+    # layers
+    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    hl2 = add_layer(inputs=hl1, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
+    loss = tf.abs(out - prediction)
+
+    init = tf.global_variables_initializer()
+    sess = tf.Session()
+    sess.run(init)
+
+    tf.train.Saver().restore(sess, r'/tftrain')
+    plt.cla()
+    for i in range(startid, endid):
+        train_data = ExportData(i)
+        if train_data == 404:
+            continue
+        else:
+            plt.scatter(i, sess.run(loss, feed_dict={invec: [train_data[0]], out: train_data[1]}), c='red')
+    plt.savefig('loss_dis.png')
 
 if __name__ == '__main__':
-    train(36676000, 36677001)
+    lossdis(36676000, 36676052)
