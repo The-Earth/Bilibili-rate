@@ -1,6 +1,7 @@
 import tensorflow as tf
 from DataProcess import ExportData
 import os
+import matplotlib.pyplot as plt
 
 def add_layer(inputs, in_size, out_size, activation_function=None):
     '''
@@ -38,19 +39,21 @@ def train(startid, endid):
     else:
         pass
 
-    for i in range(1000):
+    plt.cla()
+    for i in range(100):
         for j in range(startid, endid):
             train_data = ExportData(j)
             if train_data == 404:
                 continue
             else:
                 sess.run(trainer, feed_dict={invec:[train_data[0]], out:train_data[1]})
-        print(sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]}))
+        plt.scatter(i, sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]})[0][0])
 
     tf.train.Saver().save(sess, r'./tf/train')
     wrter = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
+    plt.savefig('loss.png')
 
 if __name__ == '__main__':
-    train(36676000, 36678336)
+    train(36676000, 36677000)
     os.system('pause')
