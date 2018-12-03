@@ -55,6 +55,9 @@ def train(startid, endid):
     plt.savefig('loss_process.png')
 
 def lossdis(startid, endid):
+    if not os.path.exists(r'tf/train.index'):
+        return 0
+
     invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
     out = tf.placeholder(dtype=tf.float32)
 
