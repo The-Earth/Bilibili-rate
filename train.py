@@ -48,7 +48,7 @@ def train(startid, endid):
         print(sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]}))
 
     tf.train.Saver().save(sess, r'./tf/train')
-    wrter = tf.summary.FileWriter(r'./tf/graph', sess.graph)
+    writer = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
 
 if __name__ == '__main__':
