@@ -16,7 +16,19 @@ for aid in range(36020000, 36020100):
 
 上面的示例中，`data` 中以 `list` 形式存储了一个个包含视频数据的字典。
 
-感谢：[Bilibili-data](https://github.com/TimeCompass/bilibili-data)
+感谢：[Bilibili-data](https://github.com/FQrabbit/bilibili-data)
+
+## bilibilisupport.py
+
+存储 Bilibili api 信息
+
+## DataProcess.py
+
+数据存储核心脚本，调用 `vid.py` 实现抓取，另可操作数据库文件。
+
+## Main_Data.py
+
+数据库接口，帮助人工操作数据库文件。
 
 ## train.py
 
