@@ -68,7 +68,7 @@ def lossdis(startid, endid):
     sess = tf.Session()
     sess.run(init)
 
-    tf.train.Saver().restore(sess, r'/tftrain')
+    tf.train.Saver().restore(sess, r'./tf/train')
     plt.cla()
     for i in range(startid, endid):
         train_data = ExportData(i)
