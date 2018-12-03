@@ -40,20 +40,19 @@ def train(startid, endid):
         pass
 
     plt.cla()
-    for i in range(100):
+    for i in range(10):
         for j in range(startid, endid):
             train_data = ExportData(j)
             if train_data == 404:
                 continue
             else:
                 sess.run(trainer, feed_dict={invec:[train_data[0]], out:train_data[1]})
-        plt.scatter(i, sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]})[0][0])
+        plt.scatter(i, sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]})[0][0], c='red')
 
     tf.train.Saver().save(sess, r'./tf/train')
-    wrter = tf.summary.FileWriter(r'./tf/graph', sess.graph)
+    writer = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
     plt.savefig('loss.png')
 
 if __name__ == '__main__':
-    train(36676000, 36677000)
-    os.system('pause')
+    train(36676000, 36677001)
