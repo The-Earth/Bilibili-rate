@@ -1,4 +1,4 @@
-'''Bilibili API列表'''
+"""Bilibili API列表"""
 
 # APPKEY = '12737ff7776f1ade'
 APPKEY = '8e9fc618fbd41e28'

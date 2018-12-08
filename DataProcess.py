@@ -2,6 +2,7 @@ import sqlite3
 import vid
 import math
 
+
 def Builtdatabase():
     conn = sqlite3.connect('Data.db')
     # 创建数据表Data
@@ -23,13 +24,14 @@ def Builtdatabase():
     conn.commit()
     conn.close()
 
+
 def InsertData(aid):
     conn = sqlite3.connect('Data.db')
-    postdata=vid.getinfo(aid)
-    p=postdata['play']
-    c=postdata['coins']
-    ytrain=math.log(p,10)/(1+math.exp(2-50*c/p))
-    if type(postdata)!=type(1):
+    postdata = vid.getinfo(aid)
+    p = postdata['play']
+    c = postdata['coins']
+    ytrain = math.log(p, 10) / (1 + math.exp(2 - 50 * c / p))
+    if type(postdata) != type(1):
         sql = '''insert into Data
                     (VIDEONUMBER,COMMENT,TID,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,MID,COINS,YTRAIN,TITLE,TYPENAME,DESCRIPTION)
                     values(%d,%d,%d,%d,%d,%d,%d,%d,%d,%.2f,'%s','%s','%s')''' % (aid,
@@ -49,22 +51,23 @@ def InsertData(aid):
         conn.commit()
         conn.close()
 
+
 def ExportData(aid):
     conn = sqlite3.connect('Data.db')
-    sql="SELECT * from Data where VIDEONUMBER=%d"%aid
-    cur=conn.execute(sql)
-    l1=cur.fetchall()
-    l2=[]
+    sql = "SELECT * from Data where VIDEONUMBER=%d" % aid
+    cur = conn.execute(sql)
+    l1 = cur.fetchall()
+    l2 = []
 
     if len(l1):
-        for i in range(0,9):
+        for i in range(0, 9):
             l2.append(l1[0][i])
-        l3=[l2[1:9], l1[0][9]]
+        l3 = [l2[1:9], l1[0][9]]
         conn.close()
         return l3
     else:
         return 404
 
 
-if __name__ ==  '__main__':
+if __name__ == '__main__':
     pass

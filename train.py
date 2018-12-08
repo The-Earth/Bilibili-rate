@@ -3,11 +3,12 @@ from DataProcess import ExportData
 import os
 import matplotlib.pyplot as plt
 
+
 def add_layer(inputs, in_size, out_size, activation_function=None):
-    '''
+    """
     Inspired by  不会停的蜗牛
     at https://www.jianshu.com/p/e112012a4b2d
-    '''
+    """
 
     # add one more layer and return the output of this layer
     Weights = tf.Variable(tf.random_normal([in_size, out_size]))
@@ -20,7 +21,8 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
 
 
 def train(startid, endid):
-    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    global train_data
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
@@ -54,11 +56,12 @@ def train(startid, endid):
 
     plt.savefig('loss_process.png')
 
+
 def lossdis(startid, endid):
     if not os.path.exists(r'tf/train.index'):
         return 0
 
-    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
@@ -80,6 +83,7 @@ def lossdis(startid, endid):
         else:
             plt.scatter(i, sess.run(loss, feed_dict={invec: [train_data[0]], out: train_data[1]}), c='red')
     plt.savefig('loss_dis.png')
+
 
 if __name__ == '__main__':
     lossdis(36676000, 36676052)

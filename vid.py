@@ -1,5 +1,5 @@
-'''遍历全站AID'''
-#!/usr/bin/python
+"""遍历全站AID"""
+# !/usr/bin/python
 # -*- coding: utf-8 -*-
 
 from bilisupport import API_VIDEOSTATUS, HEADERS, APPKEY
@@ -7,12 +7,12 @@ import requests
 
 
 def getinfo(aid):
-    '''
+    """
     {comment:'Here is comment',
     {coins: 123,
     ...
     }
-    '''
+    """
     if not aid:
         return 404
     else:
@@ -39,6 +39,7 @@ def getinfo(aid):
         print(aid, gsvres.get('code'), gsvres.get('error'))
         return 404
     return postdata
+
 
 if __name__ == '__main__':
     for aid in range(36020000, 36020100):
