@@ -3,6 +3,7 @@ from DataProcess import ExportData
 import os
 import matplotlib.pyplot as plt
 
+
 def add_layer(inputs, in_size, out_size, activation_function=None):
     '''
     Inspired by  不会停的蜗牛
@@ -20,7 +21,7 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
 
 
 def train(startid, endid):
-    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
@@ -46,19 +47,21 @@ def train(startid, endid):
             if train_data == 404:
                 continue
             else:
-                sess.run(trainer, feed_dict={invec:[train_data[0]], out:train_data[1]})
-        plt.scatter(i, sess.run(prediction - out, feed_dict={invec:[train_data[0]], out:train_data[1]})[0][0], c='red')
+                sess.run(trainer, feed_dict={invec: [train_data[0]], out: train_data[1]})
+        plt.scatter(i, sess.run(prediction - out, feed_dict={invec: [train_data[0]], out: train_data[1]})[0][0],
+                    c='red')
 
     tf.train.Saver().save(sess, r'./tf/train')
     writer = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
     plt.savefig('loss_process.png')
 
+
 def lossdis(startid, endid):
     if not os.path.exists(r'tf/train.index'):
         return 0
 
-    invec = tf.placeholder(dtype=tf.float32, shape=(1,8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
@@ -80,6 +83,7 @@ def lossdis(startid, endid):
         else:
             plt.scatter(i, sess.run(loss, feed_dict={invec: [train_data[0]], out: train_data[1]}), c='red')
     plt.savefig('loss_dis.png')
+
 
 if __name__ == '__main__':
     lossdis(36676000, 36676052)
