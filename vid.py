@@ -1,4 +1,3 @@
-'''遍历全站AID'''
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
