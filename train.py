@@ -21,11 +21,11 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
 
 
 def train(startid, endid, fig=0):
-    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 6))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    hl1 = add_layer(inputs=invec, in_size=6, out_size=8, activation_function=tf.nn.tanh)
     hl2 = add_layer(inputs=hl1, in_size=8, out_size=8, activation_function=tf.nn.tanh)
     prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
     loss = tf.abs(out - prediction)
@@ -63,11 +63,11 @@ def lossdis(startid, n):
     if not os.path.exists(r'tf/train.index'):
         return 0
 
-    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 6))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    hl1 = add_layer(inputs=invec, in_size=6, out_size=8, activation_function=tf.nn.tanh)
     hl2 = add_layer(inputs=hl1, in_size=8, out_size=8, activation_function=tf.nn.tanh)
     prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
     loss = tf.abs(out - prediction)
@@ -78,7 +78,7 @@ def lossdis(startid, n):
 
     tf.train.Saver().restore(sess, r'./tf/train')
     plt.cla()
-    for i in range(startid, startid + n + 1):
+    for i in range(startid, startid + n):
         train_data = ExportData(i)
         if train_data == 404:
             continue
@@ -87,15 +87,16 @@ def lossdis(startid, n):
     plt.savefig('loss_dis.png')
     print('误差变化图储存于 loss_diss.png')
 
+
 def predict(aid):
     if not os.path.exists(r'tf/train.index'):
         return 0
 
-    invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
+    invec = tf.placeholder(dtype=tf.float32, shape=(1, 6))
     out = tf.placeholder(dtype=tf.float32)
 
     # layers
-    hl1 = add_layer(inputs=invec, in_size=8, out_size=8, activation_function=tf.nn.tanh)
+    hl1 = add_layer(inputs=invec, in_size=6, out_size=8, activation_function=tf.nn.tanh)
     hl2 = add_layer(inputs=hl1, in_size=8, out_size=8, activation_function=tf.nn.tanh)
     prediction = add_layer(inputs=hl2, in_size=8, out_size=1)
     loss = tf.abs(out - prediction)
@@ -109,14 +110,15 @@ def predict(aid):
     if vid_info == 404:
         return 404
     else:
-        return sess.run(prediction, feed_dict={invec:vid_info})
+        return sess.run(prediction, feed_dict={invec:[vid_info[0]]})
+
 
 if __name__ == '__main__':
     while 1:
         inp = input('[T]：训练，[L]：检视误差，[P]预测一个视频的分数：')
         if 'T' == inp:
-            startid = input('起始 id ：')
-            endid = input('终止 id ：')
+            startid = int(input('起始 id ：'))
+            endid = int(input('终止 id ：'))
             lossfig = input('输出误差变化图？[Y]es or [N]o：')
             if lossfig == 'Y':
                 lossfig = 1
@@ -124,14 +126,14 @@ if __name__ == '__main__':
             train(startid, endid, lossfig)
 
         elif 'L' == inp:
-            startid = input('从哪个视频 id 开始：')
-            n = input('看几个 id ')
+            startid = int(input('从哪个视频 id 开始：'))
+            n = int(input('看几个 id '))
             lossdis(startid, n)
 
         elif 'P' == inp:
-            aid = input('视频 id：')
+            aid = int(input('视频 id：'))
             pre = predict(aid)
             if pre == 404:
                 print('视频不存在')
             else:
-                print(pre)
+                print(pre[0][0])

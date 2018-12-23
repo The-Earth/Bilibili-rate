@@ -9,17 +9,17 @@ def Builtdatabase():
     sql1 = '''CREATE TABLE Data(
                     VIDEONUMBER INTERGER    PRIMARY KEY     NOT NULL,
                     COMMENT     INTERGER    NOT NULL,
-                    TID         INTERGER    NOT NULL,
                     PLAY        INTERGER    NOT NULL,
                     REVIEW      INTERGER    NOT NULL,
                     VIDEO_REVIEW    INTERGER    NOT NULL,
                     FAVORITES   INTERGER    NOT NULL,
-                    MID         INTERGER    NOT NULL,
                     COINS       INTERGER    NOT NULL,
                     YTRAIN      INTERGER    NOT NULL,
                     TITLE       TEXT        NOT NULL,
+                    TID         INTERGER    NOT NULL,
                     TYPENAME    TEXT        NOT NULL,
-                    DESCRIPTION TEXT        NOT NULL);'''
+                    DESCRIPTION TEXT        NOT NULL,
+                    MID         INTERGER    NOT NULL);'''
     conn.execute(sql1)
     conn.commit()
     conn.close()
@@ -33,20 +33,21 @@ def InsertData(aid):
     ytrain = math.log(p, 10) / (1 + math.exp(2 - 50 * c / p))
     if type(postdata) != type(1):
         sql = '''insert into Data
-                    (VIDEONUMBER,COMMENT,TID,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,MID,COINS,YTRAIN,TITLE,TYPENAME,DESCRIPTION)
-                    values(%d,%d,%d,%d,%d,%d,%d,%d,%d,%.2f,'%s','%s','%s')''' % (aid,
+                    (VIDEONUMBER,COMMENT,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,COINS,YTRAIN,TITLE,TYPENAME,TID,DESCRIPTION,MID)
+                    values(%d,%d,%d,%d,%d,%d,%d,%.2f,'%s','%s',%d,'%s',%d)''' % (aid,
                                                                                  postdata['comment'],
-                                                                                 postdata['tid'],
                                                                                  postdata['play'],
                                                                                  postdata['review'],
                                                                                  postdata['video_review'],
                                                                                  postdata['favorites'],
-                                                                                 postdata['mid'],
                                                                                  postdata['coins'],
                                                                                  ytrain,
                                                                                  postdata['title'],
                                                                                  postdata['typename'],
-                                                                                 postdata['description'])
+                                                                                 postdata['tid'],
+                                                                                 postdata['description'],
+                                                                                 postdata['mid'],
+                                                                                 )
         conn.execute(sql)
         conn.commit()
         conn.close()
@@ -60,9 +61,9 @@ def ExportData(aid):
     l2 = []
 
     if len(l1):
-        for i in range(0, 9):
+        for i in range(0, 7):
             l2.append(l1[0][i])
-        l3 = [l2[1:9], l1[0][9]]
+        l3 = [l2[1:8], l1[0][7]]
         conn.close()
         return l3
     else:
