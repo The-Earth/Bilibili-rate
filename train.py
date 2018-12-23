@@ -5,10 +5,10 @@ import matplotlib.pyplot as plt
 
 
 def add_layer(inputs, in_size, out_size, activation_function=None):
-    '''
+    """
     Inspired by  不会停的蜗牛
     at https://www.jianshu.com/p/e112012a4b2d
-    '''
+    """
 
     # add one more layer and return the output of this layer
     Weights = tf.Variable(tf.random_normal([in_size, out_size]))
@@ -20,7 +20,7 @@ def add_layer(inputs, in_size, out_size, activation_function=None):
     return outputs
 
 
-def train(startid, endid):
+def train(startid, endid, fig=0):
     invec = tf.placeholder(dtype=tf.float32, shape=(1, 8))
     out = tf.placeholder(dtype=tf.float32)
 
@@ -41,7 +41,7 @@ def train(startid, endid):
         pass
 
     plt.cla()
-    for i in range(10):
+    for i in range(100):
         for j in range(startid, endid):
             train_data = ExportData(j)
             if train_data == 404:
@@ -54,7 +54,8 @@ def train(startid, endid):
     tf.train.Saver().save(sess, r'./tf/train')
     writer = tf.summary.FileWriter(r'./tf/graph', sess.graph)
 
-    plt.savefig('loss_process.png')
+    if fig:
+        plt.savefig('loss_process.png')
 
 
 def lossdis(startid, endid):
@@ -86,4 +87,4 @@ def lossdis(startid, endid):
 
 
 if __name__ == '__main__':
-    lossdis(36676000, 36676052)
+    train(36650000, 36689000)
