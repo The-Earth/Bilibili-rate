@@ -36,7 +36,7 @@ def train(startid, endid, fig=0):
     sess.run(init)
 
     if os.path.exists(r'tf/train.index'):
-        tf.train.Saver().restore(sess, r'tf/train')
+        tf.train.Saver().restore(sess, tf.train.latest_checkpoint("./tf/"))
     else:
         pass
 
@@ -76,7 +76,7 @@ def lossdis(startid, n):
     sess = tf.Session()
     sess.run(init)
 
-    tf.train.Saver().restore(sess, r'./tf/train')
+    tf.train.Saver().restore(sess, tf.train.latest_checkpoint("./tf/"))
     plt.cla()
     for i in range(startid, startid + n):
         train_data = ExportData(i)
@@ -105,7 +105,7 @@ def predict(aid):
     sess = tf.Session()
     sess.run(init)
 
-    tf.train.Saver().restore(sess, r'./tf/train')
+    tf.train.Saver().restore(sess, tf.train.latest_checkpoint("./tf/"))
     vid_info = ExportData(aid)
     if vid_info == 404:
         return 404
