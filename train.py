@@ -42,6 +42,7 @@ def train(startid, endid, fig=0):
                     c='red')
         saver.save(sess, r'./tf/train')
 
+    writer = tf.summary.FileWriter("graph", sess.graph)
     if fig:
         plt.savefig('loss_process.png')
         print('误差变化图储存于 loss_process.png')
@@ -115,27 +116,27 @@ def predict(aid):
 
 
 if __name__ == '__main__':
-    while 1:
-        inp = input('[T]：训练（以一段编号范围的视频为材料）\n[L]：检视一段编号范围内的误差\n[P]：预测一个视频的分数\n：')
-        if 'T' == inp:
-            startid = int(input('训练起始 id ：'))
-            endid = int(input('终止 id ：'))
-            lossfig = input('输出误差变化图？[Y]es or [N]o：')
-            if lossfig == 'Y':
-                lossfig = 1
-            else:
-                lossfig = 0
-            train(startid, endid, lossfig)
+    inp = input('----\n[T]：训练（以一段编号范围的视频为材料）\n[L]：检视一段编号范围内的误差\n[P]：预测一个视频的分数\n：')
+    if 'T' == inp:
+        startid = int(input('训练起始 id ：'))
+        endid = int(input('终止 id ：'))
+        lossfig = input('输出误差变化图？[Y]es or [N]o：')
+        if lossfig == 'Y':
+            lossfig = 1
+        else:
+            lossfig = 0
+        train(startid, endid, lossfig)
 
-        elif 'L' == inp:
-            startid = int(input('检视起始 id ：'))
-            n = int(input('看几个 id：'))
-            lossdis(startid, n)
+    elif 'L' == inp:
+        startid = int(input('检视起始 id ：'))
+        n = int(input('看几个 id：'))
+        print('Loading...')
+        lossdis(startid, n)
 
-        elif 'P' == inp:
-            aid = int(input('视频 id：'))
-            pre = predict(aid)
-            if pre == 404:
-                print('视频不存在')
-            else:
-                print(pre[0][0])
+    elif 'P' == inp:
+        aid = int(input('视频 id：'))
+        pre = predict(aid)
+        if pre == 404:
+            print('视频不存在')
+        else:
+            print('编号为 %d 的视频预测分数为 %.2f.' % (aid, pre[0][0]))
