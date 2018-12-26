@@ -14,7 +14,7 @@ def train(startid, endid, fig=0):
     hl1 = tf.nn.tanh(tf.matmul(invec, weights1) + offset1)
     weights2 = tf.Variable(tf.random_normal([6, 6]), name='w2')
     offset2 = tf.Variable(0., name='b2')
-    hl2 = tf.nn.tanh(tf.matmul(hl1, weights2) + offset2)
+    hl2 = tf.matmul(hl1, weights2) + offset2
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre
@@ -31,7 +31,7 @@ def train(startid, endid, fig=0):
 
     saver = tf.train.Saver(max_to_keep=4)
     plt.cla()
-    for i in range(100):
+    for i in range(10):
         for j in range(startid, endid):
             train_data = ExportData(j)
             if train_data != 404:
@@ -61,7 +61,7 @@ def lossdis(startid, n):
     hl1 = tf.nn.tanh(tf.matmul(invec, weights1) + offset1)
     weights2 = tf.Variable(tf.random_normal([6, 6]), name='w2')
     offset2 = tf.Variable(0., name='b2')
-    hl2 = tf.nn.tanh(tf.matmul(hl1, weights2) + offset2)
+    hl2 = tf.matmul(hl1, weights2) + offset2
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre
@@ -95,7 +95,7 @@ def predict(aid):
     hl1 = tf.nn.tanh(tf.matmul(invec, weights1) + offset1)
     weights2 = tf.Variable(tf.random_normal([6, 6]), name='w2')
     offset2 = tf.Variable(0., name='b2')
-    hl2 = tf.nn.tanh(tf.matmul(hl1, weights2) + offset2)
+    hl2 = tf.matmul(hl1, weights2) + offset2
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre

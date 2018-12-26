@@ -31,7 +31,7 @@ def InsertData(aid):
     p = postdata['play']
     c = postdata['coins']
     ytrain = math.log(p, 10) / (1 + math.exp(2 - 50 * c / p))
-    if type(postdata) != type(1):
+    if type(postdata) != type(1) and ytrain >= 0.35:
         sql = '''insert into Data
                     (VIDEONUMBER,COMMENT,PLAY,REVIEW,VIDEO_REVIEW,FAVORITES,COINS,YTRAIN,TITLE,TYPENAME,TID,DESCRIPTION,MID)
                     values(%d,%d,%d,%d,%d,%d,%d,%.2f,'%s','%s',%d,'%s',%d)''' % (aid,
