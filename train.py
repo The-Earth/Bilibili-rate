@@ -69,7 +69,6 @@ def lossdis(startid, n):
 
     trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
     sess = tf.Session()
-    sess.run(init)
 
     tf.train.Saver().restore(sess, save_path="./tf/train")
 
