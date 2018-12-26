@@ -42,7 +42,7 @@ HEADERS = {
     LIVE_BUVID__ckMd5=; \
     DedeUserID=; \
     DedeUserID__ckMd5='
-    }
+}
 
 PROXIES = {
     'http': 'socks5://127.0.0.1:1080',

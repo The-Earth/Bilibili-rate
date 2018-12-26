@@ -112,5 +112,6 @@ venv.bak/
 
 AlreadyIn.txt
 
-# Tensorboard
-/tf/graph
+# Tensorflow
+/graph
+/tf
