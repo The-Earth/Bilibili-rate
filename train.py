@@ -75,9 +75,7 @@ def lossdis(startid, n):
     plt.cla()
     for i in range(startid, startid + n):
         train_data = ExportData(i)
-        if train_data == 404:
-            continue
-        else:
+        if train_data != 404:
             plt.scatter(i, sess.run(out - prediction, feed_dict={invec: [train_data[0]], out: train_data[1]}), c='red',
                         s=2500 / n)
     plt.savefig('loss_dis.png')
