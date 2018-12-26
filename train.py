@@ -18,7 +18,7 @@ def train(startid, endid, fig=0):
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre
-    loss = tf.sqrt(tf.abs(out - prediction))
+    loss = tf.pow(out - prediction, 2)
 
     trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
     sess = tf.Session()
@@ -34,11 +34,11 @@ def train(startid, endid, fig=0):
     for i in range(100):
         for j in range(startid, endid):
             train_data = ExportData(j)
-            if train_data == 404:
-                continue
-            else:
+            if train_data != 404:
                 sess.run(trainer, feed_dict={invec: [train_data[0]], out: train_data[1]})
-        plt.scatter(i, sess.run(prediction - out, feed_dict={invec: [train_data[0]], out: train_data[1]})[0][0],
+
+        if train_data != 404:
+            plt.scatter(i, sess.run(prediction - out, feed_dict={invec: [train_data[0]], out: train_data[1]})[0][0],
                     c='red')
         saver.save(sess, r'./tf/train')
 
@@ -65,7 +65,7 @@ def lossdis(startid, n):
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre
-    loss = tf.sqrt(tf.abs(out - prediction))
+    loss = tf.pow(out - prediction, 2)
 
     trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
     sess = tf.Session()
@@ -101,7 +101,7 @@ def predict(aid):
     weights_pre = tf.Variable(tf.random_normal([6, 1]), name='w_pre')
     offset_pre = tf.Variable(0., name='b_pre')
     prediction = tf.matmul(hl2, weights_pre) + offset_pre
-    loss = tf.sqrt(tf.abs(out - prediction))
+    loss = tf.pow(out - prediction, 2)
 
     trainer = tf.train.RMSPropOptimizer(0.01).minimize(loss)
     sess = tf.Session()
